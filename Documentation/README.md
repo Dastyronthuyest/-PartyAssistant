@@ -1,6 +1,6 @@
-# UML Диаграммы
-
 * [Вернуться на главную](https://github.com/Dastyronthuyest/PartyAssistant/blob/master/README.md)
+
+# UML Диаграммы
 
 1. [Диаграмма вариантов использования](https://github.com/Dastyronthuyest/PartyAssistant/blob/master/Documentation/Diagramms/UseCase.md)
 2. [Диаграмма активности](https://github.com/Dastyronthuyest/PartyAssistant/blob/master/Documentation/Diagramms/Activities.md)
