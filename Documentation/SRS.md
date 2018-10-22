@@ -1,4 +1,7 @@
 # Требования к проекту
+
+* [Вернуться на главную](https://github.com/Dastyronthuyest/PartyAssistant/blob/master/README.md)
+
 ### Содержание
 1. [Введение](#1)
 2. [Требования пользователя](#2) <br>
