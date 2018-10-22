@@ -3,6 +3,8 @@
 
 ![UseCase](https://github.com/Dastyronthuyest/PartyAssistant/blob/master/Documentation/Diagramms/Images/UseCases.png)
 
+* [Назад к диаграммам](https://github.com/Dastyronthuyest/PartyAssistant/blob/master/Documentation/README.md)
+
 # Содержание
 1 [Актёры](#1) <br>
 2 [Варианты использования](#2) <br>
