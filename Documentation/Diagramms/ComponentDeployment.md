@@ -1,3 +1,5 @@
+* [Назад к диаграммам](https://github.com/Dastyronthuyest/PartyAssistant/blob/master/Documentation/README.md)
+
 # Содержание
 1. [Диграммы компонентов и развертывания](#1)
 
