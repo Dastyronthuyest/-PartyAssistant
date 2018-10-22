@@ -4,4 +4,4 @@
 1. [Диграмма классов](#1)
 
 ### 1. Диграмма классов<a name="1"></a>
-![Диграмма классов](...)
+![Диграмма классов](https://github.com/Dastyronthuyest/PartyAssistant/blob/master/Documentation/Diagramms/Images/ClassDiagram.png)
