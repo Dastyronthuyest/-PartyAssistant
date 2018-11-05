@@ -20,13 +20,12 @@ public class MainPage extends Application {
         root = new Pane();
         Image fon = new Image(getClass().getClassLoader().getResourceAsStream("fon.jpg"));
         ImageView fonView = new ImageView(fon);
-        fonView.setFitHeight(680);
-        fonView.setFitWidth(780);
         root.getChildren().add(fonView);
 
-        Scene scene = new Scene(root,780,680);
+        Scene scene = new Scene(root);
 
         primaryStage.setTitle("Party Assistant");
+        primaryStage.setMaximized(true);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
