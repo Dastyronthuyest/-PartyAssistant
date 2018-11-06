@@ -9,12 +9,13 @@
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.partyassistant.controller.ViewController"
-            prefHeight="400.0" prefWidth="600.0"
             styleClass="background" stylesheets="@theme.css">
 
     <children>
-        <ComboBox fx:id="globalCategory" layoutY="10.0" prefHeight="25.0" prefWidth="110.0"
+        <ComboBox fx:id="globalCategory" layoutX="20.0" layoutY="20.0" prefHeight="25.0" prefWidth="170.0"
                   promptText="Select global category"/>
+        <ComboBox fx:id="innerCategory" layoutX="20.0" layoutY="60.0" prefHeight="25.0" prefWidth="170.0"
+                  promptText="Select inner category"/>
     </children>
 
 </AnchorPane>

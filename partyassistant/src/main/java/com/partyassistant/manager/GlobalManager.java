@@ -2,18 +2,13 @@ package com.partyassistant.manager;
 
 import com.partyassistant.instance.CategoryImpl;
 import com.partyassistant.instance.category.Global;
-import javafx.scene.layout.StackPane;
-
-import javax.swing.*;
 import java.util.*;
 
 public class GlobalManager {
-    private JComboBox<String> listBox;
     private CategoryImpl globalCategory;
 
     public GlobalManager(List<String> list){
         String[] strs = (String[]) list.toArray();
-        listBox = new JComboBox<String>(strs);
         globalCategory = new Global(list);
 
 //        Map<String, List<String>> map = new HashMap<String, List<String>>();
@@ -29,14 +24,7 @@ public class GlobalManager {
 
     public boolean setCategory(String category){
         boolean success = globalCategory.setCurrent(category);
-        if(success){
-            listBox.setSelectedItem(category);
-        }
         return success;
-    }
-
-    public JComboBox<String> getListEntity() {
-        return listBox;
     }
 
     //    private void printMap(Map<String, List<String>> map){

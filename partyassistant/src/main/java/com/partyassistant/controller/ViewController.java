@@ -10,6 +10,9 @@ public class ViewController {
     @FXML
     private ComboBox<String> globalCategory;
 
+    @FXML
+    private ComboBox<String> innerCategory;
+
     public void initialize() throws Exception {
         ObservableList<String> options = FXCollections.observableArrayList("Бутерброды", "Алкашка");
         globalCategory.setItems(options);
