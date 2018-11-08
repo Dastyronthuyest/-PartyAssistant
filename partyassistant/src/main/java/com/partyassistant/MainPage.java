@@ -22,15 +22,6 @@ public class MainPage extends Application {
     private static Stage primaryStage;
 
     public static void main(String[] args) throws SQLException {
-        GlobalDao globalDao = new GlobalDao();
-        List<GlobalEntity> globalEntities = globalDao.findAll();
-        for (GlobalEntity entity: globalEntities) {
-            System.out.println(entity.getId() + " - " + entity.getName());
-        }
-
-        GlobalEntity appetizers = globalDao.getByName("Appetizers");
-        System.out.println(appetizers.getId() + " - " + appetizers.getName());
-
         launch(args);
     }
 
