@@ -31,9 +31,11 @@ public class Connector {
         }
     }
 
-    public <T> T queryForObject(String sql, Mapper<T> mapper) throws SQLException {
-        Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery(sql);
+    public <T> T queryForObject(String sql, Mapper<T> mapper, String str) throws SQLException {
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setString(1, str);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        resultSet.next();
         return mapper.mapRow(resultSet);
     }
 

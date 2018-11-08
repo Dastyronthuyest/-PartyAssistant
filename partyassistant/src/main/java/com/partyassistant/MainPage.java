@@ -28,6 +28,9 @@ public class MainPage extends Application {
             System.out.println(entity.getId() + " - " + entity.getName());
         }
 
+        GlobalEntity appetizers = globalDao.getByName("Appetizers");
+        System.out.println(appetizers.getId() + " - " + appetizers.getName());
+
         launch(args);
     }
 

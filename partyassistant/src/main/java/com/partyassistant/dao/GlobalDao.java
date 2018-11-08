@@ -10,8 +10,8 @@ import java.util.List;
 public class GlobalDao implements IGlobalDao {
     @Override
     public GlobalEntity getByName(String name) throws SQLException {
-        String sql = "SELECT * FROM global WHERE id=" + name;
-        return Connector.getInstance().queryForObject(sql, new GlobalMapper());
+        String sql = "SELECT * FROM global WHERE name=?";
+        return Connector.getInstance().queryForObject(sql, new GlobalMapper(), name);
     }
 
     @Override
