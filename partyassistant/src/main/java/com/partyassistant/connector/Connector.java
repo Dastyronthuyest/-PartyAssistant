@@ -37,8 +37,6 @@ public class Connector {
         return mapper.mapRow(resultSet);
     }
 
-
-
     public <T> List<T> query(String sql, Mapper<T> mapper) throws SQLException {
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery(sql);
@@ -49,6 +47,4 @@ public class Connector {
         }
         return resultList;
     }
-
-
 }
