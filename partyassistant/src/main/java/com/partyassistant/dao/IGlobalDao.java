@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface IGlobalDao {
-    GlobalEntity getById(int id) throws SQLException;
+    GlobalEntity getByName(String name) throws SQLException;
 
     List<GlobalEntity> findAll() throws SQLException;
 }

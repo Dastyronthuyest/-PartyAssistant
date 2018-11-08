@@ -9,14 +9,14 @@ import java.util.List;
 
 public class GlobalDao implements IGlobalDao {
     @Override
-    public GlobalEntity getById(int id) throws SQLException {
-        String sql = "SELECT * FROM global WHERE id=" + Integer.valueOf(id).toString();
+    public GlobalEntity getByName(String name) throws SQLException {
+        String sql = "SELECT * FROM global WHERE id=" + name;
         return Connector.getInstance().queryForObject(sql, new GlobalMapper());
     }
 
     @Override
     public List<GlobalEntity> findAll() throws SQLException {
-        String sql = "SELECT * FROM global";
+        String sql = "SELECT * FROM global ORDER BY name";
         return Connector.getInstance().query(sql, new GlobalMapper());
     }
 }
