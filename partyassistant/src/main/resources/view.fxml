@@ -16,6 +16,7 @@
                   promptText="Select global category"/>
         <ComboBox fx:id="innerCategory" layoutX="20.0" layoutY="60.0" prefHeight="25.0" prefWidth="170.0"
                   promptText="Select inner category"/>
+
     </children>
 
 </AnchorPane>
