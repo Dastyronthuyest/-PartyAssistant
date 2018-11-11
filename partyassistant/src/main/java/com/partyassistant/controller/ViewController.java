@@ -21,6 +21,11 @@ public class ViewController {
     private GlobalDao globalDao;
 
     public void initialize() throws Exception {
+        ObservableList<String> globalOptions = initializeGlobal();
+        globalCategory.setItems(globalOptions);
+    }
+
+    private ObservableList<String> initializeGlobal() throws Exception {
         globalDao = new GlobalDao();
         List<GlobalEntity> globalEntities = globalDao.findAll();
         ArrayList<String> globalList = new ArrayList<>();
@@ -29,6 +34,6 @@ public class ViewController {
         }
 
         ObservableList<String> options = FXCollections.observableArrayList(globalList);
-        globalCategory.setItems(options);
+        return options;
     }
 }
