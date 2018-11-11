@@ -10,19 +10,13 @@ import java.util.List;
 public class InnerDao implements IInnerDao {
     @Override
     public InnerEntity getByName(String name) throws SQLException {
-        String sql = "SELECT * FROM inner WHERE name=?";
+        String sql = "SELECT * FROM `inner` WHERE name=?";
         return Connector.getInstance().queryForObject(sql, new InnerMapper(), name);
     }
 
     @Override
     public List<InnerEntity> findByParent(int parentId) throws SQLException {
-        String sql = "SELECT * FROM inner where global_id=?";
+        String sql = "SELECT * FROM `inner` WHERE global_id=?";
         return Connector.getInstance().query(sql, new InnerMapper(), parentId);
-    }
-
-    @Override
-    public List<InnerEntity> findAll() throws SQLException {
-        String sql = "SELECT * FROM inner ORDER BY global_id";
-        return Connector.getInstance().query(sql, new InnerMapper());
     }
 }

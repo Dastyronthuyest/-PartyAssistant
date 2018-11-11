@@ -9,6 +9,4 @@ public interface IInnerDao {
     InnerEntity getByName(String name) throws SQLException;
 
     List<InnerEntity> findByParent(int parentId) throws SQLException;
-
-    List<InnerEntity> findAll() throws SQLException;
 }
