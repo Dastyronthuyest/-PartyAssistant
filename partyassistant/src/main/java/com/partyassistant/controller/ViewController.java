@@ -1,20 +1,14 @@
 package com.partyassistant.controller;
 
-import com.partyassistant.dao.GlobalDao;
-import com.partyassistant.dao.IngredientDao;
-import com.partyassistant.dao.InnerDao;
-import com.partyassistant.entity.GlobalEntity;
-import com.partyassistant.entity.IngredientEntity;
-import com.partyassistant.entity.InnerEntity;
+import com.partyassistant.dao.*;
+import com.partyassistant.entity.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.geometry.Pos;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.VBox;
 
-import java.awt.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
