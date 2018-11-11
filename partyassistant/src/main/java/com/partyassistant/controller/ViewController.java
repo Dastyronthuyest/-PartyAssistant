@@ -54,6 +54,19 @@ public class ViewController {
                 e.printStackTrace();
             }
         }));
+
+        innerCategory.valueProperty().addListener(((observable, oldValue, newValue) -> {
+            try {
+                InnerEntity newCurrentInner = innerDao.getByName(observable.getValue());
+                ingredients.getChildren().clear();
+                ArrayList<String> newIngredientList = getIngredientList(newCurrentInner.getId());
+                for (String ingredient: newIngredientList) {
+                    ingredients.getChildren().add(addIngredient(ingredient));
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }));
     }
 
     private ObservableList<String> initializeGlobal() throws SQLException {
