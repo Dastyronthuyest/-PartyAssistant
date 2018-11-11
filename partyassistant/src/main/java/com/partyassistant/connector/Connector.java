@@ -49,4 +49,16 @@ public class Connector {
         }
         return resultList;
     }
+
+    public <T> List<T> query(String sql, Mapper<T> mapper, int parentId) throws SQLException{
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setInt(1, parentId);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        List<T> resultList = new ArrayList<>();
+        while(resultSet.next()){
+            T newT = mapper.mapRow(resultSet);
+            resultList.add(newT);
+        }
+        return resultList;
+    }
 }
