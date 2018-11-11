@@ -8,8 +8,8 @@
 <AnchorPane styleClass="background" stylesheets="@theme.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.partyassistant.controller.ViewController">
 
     <children>
-        <ComboBox fx:id="globalCategory" layoutX="50.0" layoutY="30.0" prefHeight="50.0" prefWidth="250.0" promptText="Select global category" style="-fx-background-color: TOMATO;" />
-        <ComboBox fx:id="innerCategory" layoutX="50.0" layoutY="110.0" prefHeight="50.0" prefWidth="250.0" promptText="Select inner category" style="-fx-background-color: TOMATO;" />
+        <ComboBox fx:id="globalCategory" layoutX="50.0" layoutY="30.0" prefHeight="50.0" prefWidth="250.0" promptText="Select global category" style="-fx-background-color: TOMATO; -fx-font-size: 16" />
+        <ComboBox fx:id="innerCategory" layoutX="50.0" layoutY="110.0" prefHeight="50.0" prefWidth="250.0" promptText="Select inner category" style="-fx-background-color: TOMATO; -fx-font-size: 16" />
         <Pane layoutX="90.0" layoutY="200.0" prefHeight="500.0" prefWidth="250.0" style="-fx-opacity: 100">
          <children>
             <VBox fx:id="ingredients" prefHeight="460.0" prefWidth="180.0" />
