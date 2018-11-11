@@ -49,8 +49,7 @@ public class ViewController {
             globalList.add(entity.getName());
         }
 
-        ObservableList<String> options = FXCollections.observableArrayList(globalList);
-        return options;
+        return FXCollections.observableArrayList(globalList);
     }
 
     private ObservableList<String> initializeInner() throws SQLException{
@@ -64,7 +63,6 @@ public class ViewController {
         for (InnerEntity entity: innerEntities) {
             innerList.add(entity.getName());
         }
-        ObservableList<String> options = FXCollections.observableArrayList(innerList);
-        return options;
+        return FXCollections.observableArrayList(innerList);
     }
 }
