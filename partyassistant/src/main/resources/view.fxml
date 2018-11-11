@@ -1,21 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.partyassistant.controller.ViewController"
-            styleClass="background" stylesheets="@theme.css">
+<AnchorPane styleClass="background" stylesheets="@theme.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.partyassistant.controller.ViewController">
 
     <children>
-        <ComboBox fx:id="globalCategory" layoutX="20.0" layoutY="20.0" prefHeight="25.0" prefWidth="170.0"
-                  promptText="Select global category"/>
-        <ComboBox fx:id="innerCategory" layoutX="20.0" layoutY="60.0" prefHeight="25.0" prefWidth="170.0"
-                  promptText="Select inner category"/>
+        <ComboBox fx:id="globalCategory" layoutX="50.0" layoutY="30.0" prefHeight="50.0" prefWidth="250.0" promptText="Select global category" style="-fx-background-color: TOMATO;" />
+        <ComboBox fx:id="innerCategory" layoutX="50.0" layoutY="110.0" prefHeight="50.0" prefWidth="250.0" promptText="Select inner category" style="-fx-background-color: TOMATO;" />
+        <Pane layoutX="90.0" layoutY="200.0" prefHeight="500.0" prefWidth="250.0" style="-fx-opacity: 100">
+         <children>
+            <VBox fx:id="ingredients" prefHeight="460.0" prefWidth="180.0" />
+         </children></Pane>
 
     </children>
 
