@@ -55,19 +55,16 @@ public class ViewController {
 
         RecipeEntity entity = initializeRecipe();
 
-        this.recipeImage = new ImageView((new Image(new File(entity.getImage()).toURI().toString())));
-        System.out.println(entity.getImage());
-        this.recipeName = new Label((entity.getName()));
-        System.out.println(this.recipeName.getText());
+        recipeImage.setImage(new Image(entity.getImage()));
+        recipeName.setText(entity.getName());
+        recipeName.setWrapText(true);
 
         try(BufferedReader br = new BufferedReader(new FileReader(INGREDIENTS_PATCH_MASK + entity.getIngredients()))) {
-            this.recipeIngredients = new Label(readData(br));
-            System.out.println(this.recipeIngredients.getText());
+            recipeIngredients.setText(readData(br));
         }
 
         try(BufferedReader br = new BufferedReader(new FileReader(DESCRIPTION_PATCH_MASK + entity.getDescription()))) {
-            this.recipeDescription = new Label(readData(br));
-            System.out.println(this.recipeDescription.getText());
+            recipeDescription.setText(readData(br));
         }
 
         globalCategory.valueProperty().addListener(((observable, oldValue, newValue) -> {
@@ -136,7 +133,7 @@ public class ViewController {
 
     private CheckBox addIngredient(String name){
         CheckBox newCheckBox = new CheckBox(name);
-        newCheckBox.setStyle("-fx-text-fill: TOMATO; -fx-font-size: 16");
+        newCheckBox.setStyle("-fx-text-fill: TOMATO; -fx-font-size: 16; -fx-font-family: Candara;");
         newCheckBox.setPrefSize(200, 40);
         return newCheckBox;
     }
