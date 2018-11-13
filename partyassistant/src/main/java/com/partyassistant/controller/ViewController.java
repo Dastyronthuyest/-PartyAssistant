@@ -35,6 +35,7 @@ public class ViewController {
     private InnerDao innerDao;
     private IngredientDao ingredientDao;
     private IRecipeDao recipeDao;
+    private List<CheckBox> boxes;
 
     private final String DESCRIPTION_PATCH_MASK =
             "C:\\Main\\Java Projects\\PartyAssistant\\partyassistant\\src\\main\\resources\\description\\";
@@ -42,6 +43,8 @@ public class ViewController {
             "C:\\Main\\Java Projects\\PartyAssistant\\partyassistant\\src\\main\\resources\\ingredients\\";
 
     public void initialize() throws SQLException, IOException {
+        boxes = new ArrayList<>();
+
         ObservableList<String> globalOptions = initializeGlobal();
         globalCategory.setItems(globalOptions);
 
@@ -50,22 +53,13 @@ public class ViewController {
 
         ArrayList<String> ingredientList = initializeIngredients();
         for(String ingredient: ingredientList){
-            ingredients.getChildren().add(addIngredient(ingredient));
+            CheckBox newBox = addIngredient(ingredient);
+            ingredients.getChildren().add(newBox);
+            boxes.add(newBox);
         }
 
-        RecipeEntity entity = initializeRecipe();
-
-        recipeImage.setImage(new Image(entity.getImage()));
-        recipeName.setText(entity.getName());
-        recipeName.setWrapText(true);
-
-        try(BufferedReader br = new BufferedReader(new FileReader(INGREDIENTS_PATCH_MASK + entity.getIngredients()))) {
-            recipeIngredients.setText(readData(br));
-        }
-
-        try(BufferedReader br = new BufferedReader(new FileReader(DESCRIPTION_PATCH_MASK + entity.getDescription()))) {
-            recipeDescription.setText(readData(br));
-        }
+        customizeRecipe(initializeRecipe());
+        ingredientEventHandler();
 
         globalCategory.valueProperty().addListener(((observable, oldValue, newValue) -> {
             try {
@@ -80,14 +74,34 @@ public class ViewController {
             try {
                 InnerEntity newCurrentInner = innerDao.getByName(observable.getValue());
                 ingredients.getChildren().clear();
+                boxes.clear();
                 ArrayList<String> newIngredientList = getIngredientList(newCurrentInner.getId());
                 for (String ingredient: newIngredientList) {
-                    ingredients.getChildren().add(addIngredient(ingredient));
+                    CheckBox newBox = addIngredient(ingredient);
+                    ingredients.getChildren().add(newBox);
+                    boxes.add(newBox);
                 }
+
+                ingredientEventHandler();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         }));
+    }
+
+    private void ingredientEventHandler() {
+        for(CheckBox box: boxes){
+            box.selectedProperty().addListener(((observable1, oldValue1, newValue1) -> {
+                if(box.isSelected()){
+                    try {
+                        IngredientEntity newCurrentIngredient = ingredientDao.getByName(box.getText());
+                        customizeRecipe(getRecipe(newCurrentIngredient.getId()));
+                    } catch (SQLException | IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }));
+        }
     }
 
     private ObservableList<String> initializeGlobal() throws SQLException {
@@ -158,5 +172,19 @@ public class ViewController {
 
     private RecipeEntity getRecipe(int ingredientId) throws SQLException{
         return recipeDao.findByParent(ingredientId);
+    }
+
+    private void customizeRecipe(RecipeEntity entity) throws IOException {
+        recipeImage.setImage(new Image(entity.getImage()));
+        recipeName.setText(entity.getName());
+        recipeName.setWrapText(true);
+
+        try(BufferedReader br = new BufferedReader(new FileReader(INGREDIENTS_PATCH_MASK + entity.getIngredients()))) {
+            recipeIngredients.setText(readData(br));
+        }
+
+        try(BufferedReader br = new BufferedReader(new FileReader(DESCRIPTION_PATCH_MASK + entity.getDescription()))) {
+            recipeDescription.setText(readData(br));
+        }
     }
 }
