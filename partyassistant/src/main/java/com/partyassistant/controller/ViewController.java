@@ -2,7 +2,10 @@ package com.partyassistant.controller;
 
 import com.partyassistant.dao.*;
 import com.partyassistant.entity.*;
-import javafx.collections.FXCollections;
+import com.partyassistant.manager.GlobalManager;
+import com.partyassistant.manager.IngredientManager;
+import com.partyassistant.manager.InnerManager;
+import com.partyassistant.manager.RecipeManager;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -31,10 +34,6 @@ public class ViewController {
 
     @FXML private Label recipeDescription;
 
-    private GlobalDao globalDao;
-    private InnerDao innerDao;
-    private IngredientDao ingredientDao;
-    private IRecipeDao recipeDao;
     private List<CheckBox> boxes;
 
     private final String DESCRIPTION_PATCH_MASK =
@@ -45,26 +44,27 @@ public class ViewController {
     public void initialize() throws SQLException, IOException {
         boxes = new ArrayList<>();
 
-        ObservableList<String> globalOptions = initializeGlobal();
+        ObservableList<String> globalOptions = GlobalManager.getInstance().initialize();
         globalCategory.setItems(globalOptions);
 
-        ObservableList<String> innerOptions = initializeInner();
+        ObservableList<String> innerOptions = InnerManager.getInstance().initialize();
         innerCategory.setItems(innerOptions);
 
-        ArrayList<String> ingredientList = initializeIngredients();
+        ArrayList<String> ingredientList = IngredientManager.getInstance().initialize();
         for(String ingredient: ingredientList){
             CheckBox newBox = addIngredient(ingredient);
             ingredients.getChildren().add(newBox);
             boxes.add(newBox);
         }
+        ingredients.setSpacing(15.0);
 
-        customizeRecipe(initializeRecipe());
+        customizeRecipe(RecipeManager.getInstance().initialize());
         ingredientEventHandler();
 
         globalCategory.valueProperty().addListener(((observable, oldValue, newValue) -> {
             try {
-                GlobalEntity newCurrentGlobal = globalDao.getByName(observable.getValue());
-                innerCategory.setItems(getInnerList(newCurrentGlobal.getId()));
+                GlobalEntity newCurrentGlobal = GlobalManager.getInstance().getByName(observable.getValue());
+                innerCategory.setItems(InnerManager.getInstance().getList(newCurrentGlobal.getId()));
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -72,10 +72,10 @@ public class ViewController {
 
         innerCategory.valueProperty().addListener(((observable, oldValue, newValue) -> {
             try {
-                InnerEntity newCurrentInner = innerDao.getByName(observable.getValue());
+                InnerEntity newCurrentInner = InnerManager.getInstance().getByName(observable.getValue());
                 ingredients.getChildren().clear();
                 boxes.clear();
-                ArrayList<String> newIngredientList = getIngredientList(newCurrentInner.getId());
+                ArrayList<String> newIngredientList = IngredientManager.getInstance().getList(newCurrentInner.getId());
                 for (String ingredient: newIngredientList) {
                     CheckBox newBox = addIngredient(ingredient);
                     ingredients.getChildren().add(newBox);
@@ -94,8 +94,8 @@ public class ViewController {
             box.selectedProperty().addListener(((observable1, oldValue1, newValue1) -> {
                 if(box.isSelected()){
                     try {
-                        IngredientEntity newCurrentIngredient = ingredientDao.getByName(box.getText());
-                        customizeRecipe(getRecipe(newCurrentIngredient.getId()));
+                        IngredientEntity newCurrentIngredient = IngredientManager.getInstance().getByName(box.getText());
+                        customizeRecipe(RecipeManager.getInstance().getRecipe(newCurrentIngredient.getId()));
                     } catch (SQLException | IOException e) {
                         e.printStackTrace();
                     }
@@ -104,58 +104,11 @@ public class ViewController {
         }
     }
 
-    private ObservableList<String> initializeGlobal() throws SQLException {
-        globalDao = new GlobalDao();
-        List<GlobalEntity> globalEntities = globalDao.findAll();
-        ArrayList<String> globalList = new ArrayList<>();
-        for (GlobalEntity entity: globalEntities) {
-            globalList.add(entity.getName());
-        }
-
-        return FXCollections.observableArrayList(globalList);
-    }
-
-    private ObservableList<String> initializeInner() throws SQLException{
-        innerDao = new InnerDao();
-        return getInnerList(1);
-    }
-
-    private ObservableList<String> getInnerList(int globalId) throws SQLException{
-        List<InnerEntity> innerEntities = innerDao.findByParent(globalId);
-        ArrayList<String> innerList = new ArrayList<>();
-        for (InnerEntity entity: innerEntities) {
-            innerList.add(entity.getName());
-        }
-        return FXCollections.observableArrayList(innerList);
-    }
-
-    private ArrayList<String> initializeIngredients() throws SQLException{
-        ingredientDao = new IngredientDao();
-
-        ingredients.setSpacing(15.0);
-        return getIngredientList(1);
-    }
-
-    private ArrayList<String> getIngredientList(int innerId) throws SQLException{
-        List<IngredientEntity> ingredientEntities = ingredientDao.findByParent(innerId);
-        ArrayList<String> ingredientList = new ArrayList<>();
-        for(IngredientEntity entity: ingredientEntities){
-            ingredientList.add(entity.getName());
-        }
-        return ingredientList;
-    }
-
     private CheckBox addIngredient(String name){
         CheckBox newCheckBox = new CheckBox(name);
         newCheckBox.setStyle("-fx-text-fill: TOMATO; -fx-font-size: 16; -fx-font-family: Candara;");
         newCheckBox.setPrefSize(200, 40);
         return newCheckBox;
-    }
-
-    private RecipeEntity initializeRecipe() throws SQLException {
-        recipeDao = new RecipeDao();
-
-        return getRecipe(1);
     }
 
     private String readData(BufferedReader br) throws IOException {
@@ -168,10 +121,6 @@ public class ViewController {
             text = br.readLine();
         }
         return sb.toString();
-    }
-
-    private RecipeEntity getRecipe(int ingredientId) throws SQLException{
-        return recipeDao.findByParent(ingredientId);
     }
 
     private void customizeRecipe(RecipeEntity entity) throws IOException {
