@@ -1,3 +1,5 @@
+* [Вернуться на главную](https://github.com/Dastyronthuyest/PartyAssistant/blob/master/README.md)
+
 ### Содержание
   1. [Введение](#1)
   2. [Объект тестирования](#2)
